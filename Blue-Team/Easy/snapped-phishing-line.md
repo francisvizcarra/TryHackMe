@@ -20,6 +20,9 @@ As a member of the IT department at SwiftSpend Financial, you are responsible fo
 ### Answer the questions below
 1. Begin reviewing the emails in the phish-emails folder on your desktop.
    Which individual received the email regarding a **Quote for Services Rendered**?
+   - By accessing the **phish-emails** folder on the Desktop, the email about the **Quote for Services Rendered** can be investigated.
+     
+     ![Phishing Email](images/phish-emails-folder.png)
    
 2. What email address was used by the adversary to send the phishing emails?
 
