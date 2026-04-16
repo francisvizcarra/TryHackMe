@@ -1,0 +1,16 @@
+# Infinity Shell
+Investigate and analyse the traces of an attack from an implanted webshell.
+
+[TryHackMe Room](https://tryhackme.com/room/hfb1infinityshell)
+
+## Introduction
+Cipher’s legion of bots has exploited a known vulnerability in our web application, leaving behind a dangerous web shell implant. Investigate the breach and trace the attacker's footsteps!
+
+## Tools Used
+- CyberChef
+
+---
+---
+
+## Answer the questions below
+### 1. What is the flag?
