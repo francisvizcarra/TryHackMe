@@ -18,7 +18,7 @@ The objective is to investigate web app vulnerability, so the focus will be on i
 
 Upon heading into /var/log, only the apache2 was present. 
 
-[image]
+![cd /var/log ls -a](images/-var-log-ls-a.png)
 
 To be time efficient, only the unusually large file were investigated. This was achieved by using the command:
 
@@ -26,7 +26,7 @@ To be time efficient, only the unusually large file were investigated. This was 
 ls -la
 ```
 
-[image]
+![cd /var/log ls -la](images/-var-log-apache2-ls-la.png)
 
 During the investigation of the **other_vhosts_access.log.1** file, what stood out is the **images.php** script in the **/CMSsite-master/img** diretory, which is unusual as typically it should only contain image files (e.g., .jpg, .png). This was achieved by using the command:
 
@@ -34,12 +34,19 @@ During the investigation of the **other_vhosts_access.log.1** file, what stood o
 cat other_vhosts_access.log.` | grep images.php
 ```
 
-[image]
+![grep images.php](images/grep-images.php.png)
 
-To further narrow down the investigation, the focus was turned to the requests with suspicious query parameters containing Base64 encoded strings.
+To further narrow down the investigation, the focus was turned to the requests with suspicious query parameters containing Base64 encoded strings. This was achieved by using the command:
 
-[image]
+```bash
+cat other_vhosts_access.log.` | grep images.php?query
+```
 
-CyberChef was utilized to decode the values.
+![grep images.php?query](images/grep-images.php-query.png)
 
-[image]
+CyberChef was utilized to decode the values, resulting to discovering the enumeration commands of the attacker along with the Flag **THM{sup3r_34sy_w3bsh3ll}** to accomplish the Room.
+
+![cyber chef](images/cyber-chef.png)
+
+---
+---
