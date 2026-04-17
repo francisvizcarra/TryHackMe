@@ -69,4 +69,5 @@ The attackers used **ClickFix**, "a technique in which the service initially app
 ## References
 - VirusTotal: https://www.virustotal.com/gui/ip-address/101.99.76.120
 - VirusTotal: https://www.virustotal.com/gui/file/5d0509f68a9b7c415a726be75a078180e3f02e59866f193b0a99eee8e39c874f
+- VirusTotal: https://www.virustotal.com/gui/file/fa102d4e3cfbe85f5189da70a52c1d266925f3efd122091cdc8fe0fc39033942
 - Check Point Research. (2025). *From trust to threat: hijacked Discord invites used for multi-stage malware delivery*. https://research.checkpoint.com/2025/from-trust-to-threat-hijacked-discord-invites-used-for-multi-stage-malware-delivery/
