@@ -22,14 +22,22 @@ We recently purchased a new threat intelligence search application called TryDet
 ### 1. What is the name of the file identified with the flagged SHA256 hash?
 As per **VirusTotal**, the SHA256 hash corresponds to **syshelpers.exe**.
 
+![SHA256 file](images/syshelpers-exe.png)
+
 ### 2. What is the file type associated with the flagged SHA256 hash?
 Under the **Details** tab, the file type is **Win32 EXE**.
+
+![file type](images/Win32-EXE.png)
 
 ### 3. What are the execution parents of the flagged hash? List the names chronologically, using a comma as a separator. Note down the hashes for later use.
 Under the **Relations** tab, the execution parents are **361GJX7J** and **installer.exe**.
 
+![execution parents](images/execution-parents.png)
+
 ### 4. What is the name of the file being dropped? Note down the hash value for later use.
 While the analysis revealed that some files had unknown attributes ('?') indicating incomplete data, one file (**AClient.exe**) was fully processed for more investigation.
+
+![file dropped](images/AClient-exe.png)
 
 ### 5. Research the second hash in question 3 and list the four malicious dropped files in the order they appear (from up to down), separated by commas.
 The second hash that is being referenced to is the **installer.exe**. The malicious dropped files were **searchhost.exe**, **syshelpers.exe**, **nat1.vbs**, and **runsys.vbs**.
@@ -41,7 +49,7 @@ Reviewing the communicating files shows that these files belong to the **AsyncRA
 After doing some OSINT, the title of the original report was [From Trust to Threat: Hijacked Discord Invites Used for Multi-Stage Malware Delivery](https://research.checkpoint.com/2025/from-trust-to-threat-hijacked-discord-invites-used-for-multi-stage-malware-delivery/).
 
 ### 8. Which tool did the attackers use to steal cookies from the Google Chrome browser?
-According to Check Point Research, **ChromeKatz** was used to bypass Chrome’s App Bound Encryption [ABE] to steal cookies.
+**ChromeKatz** was used to steal cookies, bypassing Chrome’s App Bound Encryption [ABE].
 
 ### 9. Which phishing technique did the attackers use? Use the report to answer the question.
 The attackers used **ClickFix**, "a technique in which the service initially appears broken, prompting the user to take manual action to fix it” (Check Point Research, 2025).
