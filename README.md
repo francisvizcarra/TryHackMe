@@ -4,7 +4,8 @@ Challenges Write-ups
 ## 🛡️ Blue Team
 
 ### 🟢 Easy
-- Snapped Phish-ing Line
+- [Infinity Shell](https://github.com/francisvizcarra/TryHackMe/blob/main/Blue-Team/Easy/infinity-shell.md)
+- [Snapped Phish-ing Line](https://github.com/francisvizcarra/TryHackMe/blob/main/Blue-Team/Easy/snapped-phishing-line.md)
 
 ### 🟡 Medium
 - (coming soon)
