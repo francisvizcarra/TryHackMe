@@ -42,11 +42,17 @@ While the analysis revealed that some files had unknown attributes ('?') indicat
 ### 5. Research the second hash in question 3 and list the four malicious dropped files in the order they appear (from up to down), separated by commas.
 The second hash that is being referenced to is the **installer.exe**. The malicious dropped files were **searchhost.exe**, **syshelpers.exe**, **nat1.vbs**, and **runsys.vbs**.
 
+![4 dropped files](images/4-dropped-files.png)
+
 ### 6. Analyse the files related to the flagged IP. What is the malware family that links these files?
 Reviewing the communicating files shows that these files belong to the **AsyncRAT** family.
 
+![AsyncRAT family](images/AsyncRAT-family.png)
+
 ### 7. What is the title of the original report where these flagged indicators are mentioned? Use Google to find the report.
 After doing some OSINT, the title of the original report was [From Trust to Threat: Hijacked Discord Invites Used for Multi-Stage Malware Delivery](https://research.checkpoint.com/2025/from-trust-to-threat-hijacked-discord-invites-used-for-multi-stage-malware-delivery/).
+
+![AsyncRAT family](images/Check-Point-Research.png)
 
 ### 8. Which tool did the attackers use to steal cookies from the Google Chrome browser?
 **ChromeKatz** was used to steal cookies, bypassing Chrome’s App Bound Encryption [ABE].
