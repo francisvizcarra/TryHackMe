@@ -31,14 +31,14 @@ By accessing the phish-emails folder on the Desktop, the email about the Quote f
 ### 2. What email address was used by the adversary to send the phishing emails?
 In examining the **From** field, the adversary used **Accounts.Payable@groupmarketingonline.icu** to deliver the phishing emails.
 
-   ![phishing email](images/quote-for-services-rendered-email.png)
+   ![quote for services rendered .eml](images/quote-for-services-rendered-.eml.png)
 
 ### 3. Investigate the attachment in the email addressed to Zoe Duncan. What is the root domain of the redirection URL found within the file?
 To further examine the attachment, it was opened using Firefox. The domain is **kennaroads.buzz**.
   
    ![zoe duncan email](images/zoe-duncan-email.png)
 
-   ![redirection URL](images/kennaroads.buzz.png)
+   ![kennaroads.buzz](images/kennaroads.buzz.png)
 
 ### 4. Open the attachment in your VM web browser. Which company is the login page impersonating?
 It is impersonating **Microsoft**.
@@ -51,17 +51,17 @@ By only navigating to this **http://kennaroads.buzz/data/** path, the **Update36
 ### 6. Download the phishing kit archive to your virtual environment. Using the *sha256sum* command, what is the *SHA256* hash of the file?
 After downloading the phishing kit, the command **sha256sum Update365.zip** was ran to generate its hash, **ba3c15267393419eb08c7b2652b8b6b39b406ef300ae8a18fee4d16b19ac9686**.
 
-   ![Update365.zip](images/sha256.png)
+   ![Update365.zip sha256](images/Update365.zip.sha256.png)
    
 ### 7. Investigate the file hash from the previous question using VirusTotal. Aside from *phishing*, what other threat category is assigned to the *ZIP* archive?
 It is also listed as **Trojan**.
 
-   ![trojan](images/virus-total-threat-categories.png)
+   ![Update365.zip trojan](images/Update365.zip.threat.categories.png)
 
 ### 8. Review the VirusTotal Details page for the phishing kit. How many files are contained within the archive?
 In the Details tab, under Bundle Info, its metadata says that it contains **49** files.
 
-   ![49 files](images/49-files.png)
+   ![Update365.zip 49 files](images/Update365.zip.49.files.png)
    
 ### 9. Let’s see if the attacker has exposed any captured credentials. Navigate to the */data/Update365/* directory and investigate the log file. What is the email address of the user who submitted their credentials more than once?
 The **log.txt** file shows that **Micahel Ascot** submitted his credentials twice. His email address is **michael.ascot@swiftspend.finance**.
@@ -91,11 +91,11 @@ cat Update365/office365/Validation/submit.php | grep mail
 ### 11. Return to the phishing URL and locate the *flag.txt* file. Using CyberChef to decode the flag, what is the secret value?
 By utilizing the Hint button from the Room, the Flag was located from this path **http://kennaroads.buzz/data/Update365/office365/flag.txt**. However the Flag is Base64 encoded, CyberChef can decode this.
 
-![Base64](images/base64.png)
+![CyberChef Base64](images/base64.png)
 
 The **Base64** recipe was used but it is still obfuscated as the string is reversed. Hence the **Reverse** recipe was added. 
 
-![Reverse](images/reverse.png)
+![CyberChef Reverse](images/reverse.png)
 
 The Flag is **THM{pL4y_w1Th_tH3_URL}**.
 
