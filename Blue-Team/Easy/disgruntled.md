@@ -16,7 +16,7 @@ CyberT wants us to check if this person has done anything malicious to any of th
 ## Pre-requisites
 This room requires basic knowledge of Linux and is based on the [Linux Forensics room](https://tryhackme.com/room/linuxforensics). A cheat sheet is attached below.
 
-![desc.](images/)
+![Linux Forensics Cheatsheet](images/Linux-Forensics-Cheatsheet.png)
 
 ---
 ---
@@ -53,9 +53,12 @@ This room requires basic knowledge of Linux and is based on the [Linux Forensics
 
 ### 6. What is the command used that created the file **bomb.sh**?
 
+*Tip: The command was run by a different user account. Look at the ".bash_history" in the user's home directory.*
+
 ![desc.](images/)
 
 ### 7. The file was renamed and moved to a different directory. What is the full path of this file now?
+*Tip: The vi text editor can edit and save files to a different location. Check out the history of vi by looking for ".viminfo".*
 
 ![desc.](images/)
 
@@ -72,6 +75,7 @@ This room requires basic knowledge of Linux and is based on the [Linux Forensics
 *Surely, he wants it to execute at some point?*
 
 ### 10. At what time will the malicious file trigger? (Format: HH:MM AM/PM)
+*Tip: Check out the crontab and convert the schedule expression using a site like https://crontab.guru/.*
 
 ![desc.](images/)
 
