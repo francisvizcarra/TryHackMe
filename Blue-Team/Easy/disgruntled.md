@@ -28,24 +28,45 @@ This room requires basic knowledge of Linux and is based on the [Linux Forensics
 *My advice: Look at the privileged commands that were run. That should get you started.*
 
 ### 1. The user installed a package on the machine using elevated privileges. According to the logs, what is the full COMMAND?
+Tracking down sudo commands from auth logs helped to locate the full command that was ran to install the package, **/usr/bin/apt install dokuwiki**. This was achieved by using the command:
+
+```
+grep sudo auth.log* | grep COMMAND
+```
 
 ![desc.](images/)
 
 ### 2. What was the present working directory (PWD) when the previous command was run?
+From the same image above, the command was ran from the **/home/cybert** working directory.
 
 ![desc.](images/)
 
 *Keep going. Our disgruntled IT was supposed to only install a service on this computer, so look for commands that are unrelated to that.*
 
 ### 3. Which user was created after the package from the previous task was installed?
+Searching for the **adduser** string pointed out the user creation of **it-admin**. This was achieved by using the command:
+
+```
+grep sudo auth.log* | grep adduser
+```
 
 ![desc.](images/)
 
 ### 4. A user was then later given sudo priveleges. When was the sudoers file updated? (Format: Month Day HH:MM:SS)
+When editing the sudoers file, **visudo** is used. To know when the file might have been last updated, knowing when the command was ran can be an initial step through auth logs. It also made sense that the sudoers file were accessed right after creating the it-admin account. 
+
+```
+grep sudo auth.log* | grep visudo
+```
 
 ![desc.](images/)
 
 ### 5. A script file was opened using the "vi" text editor. What is the name of this file?
+By searching for the **vi** command, the **bomb.sh** script was tracked down. This was validated by the user that ran it, the attacker created account, it-admin.
+
+```
+grep sudo auth.log* | grep vi
+```
 
 ![desc.](images/)
 
@@ -54,6 +75,8 @@ This room requires basic knowledge of Linux and is based on the [Linux Forensics
 ### 6. What is the command used that created the file **bomb.sh**?
 
 *Tip: The command was run by a different user account. Look at the ".bash_history" in the user's home directory.*
+
+By going to the **/home/it-admin** directory and inspecting its bash history, the command to download the script was identified.
 
 ![desc.](images/)
 
