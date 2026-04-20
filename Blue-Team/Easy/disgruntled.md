@@ -34,12 +34,10 @@ Tracking down sudo commands from auth logs helped to locate the full command tha
 grep sudo auth.log* | grep COMMAND
 ```
 
-![desc.](images/)
+![command-home-cybert](images/command-home-cybert.png)
 
 ### 2. What was the present working directory (PWD) when the previous command was run?
 From the same image above, the command was ran from the **/home/cybert** working directory.
-
-![desc.](images/)
 
 ---
 
@@ -52,16 +50,16 @@ Searching for the "adduser" string pointed out the user creation of **it-admin**
 grep sudo auth.log* | grep adduser
 ```
 
-![desc.](images/)
+![it-admin](images/it-admin.png)
 
 ### 4. A user was then later given sudo priveleges. When was the sudoers file updated? (Format: Month Day HH:MM:SS)
-When editing the sudoers file, visudo is used. To know when the file might have been last updated, knowing when the command was ran can be an initial step through auth logs. It also made sense that the sudoers file were accessed right after creating the it-admin account. The sudoers file was update on **Dec 28 06:27:34**. This was achieved by using the command:
+When editing the sudoers file, visudo is used. To know when the file was last updated, correlating indicators (timestamp, hostname, program, user, PWD, and COMMAND) were used. The sudoers file was update on **Dec 28 06:27:34**. This was achieved by using the command:
 
 ```
 grep sudo auth.log* | grep visudo
 ```
 
-![desc.](images/)
+![Dec-28-06-27-34](images/Dec-28-06-27-34.png)
 
 ### 5. A script file was opened using the "vi" text editor. What is the name of this file?
 By searching for the "vi" command, the **bomb.sh** script was tracked down. This was validated by the user that ran it, the attacker created account, it-admin. This was achieved by using the command:
@@ -70,7 +68,7 @@ By searching for the "vi" command, the **bomb.sh** script was tracked down. This
 grep sudo auth.log* | grep vi
 ```
 
-![desc.](images/)
+![bomb-sh](images/bomb-sh.png)
 
 ---
 
@@ -86,7 +84,7 @@ By going to the /home/it-admin directory and inspecting its bash history, the co
 cat .bash_history
 ```
 
-![desc.](images/)
+![curl-bomb-sh](images/curl-bomb-sh.png)
 
 ### 7. The file was renamed and moved to a different directory. What is the full path of this file now?
 
@@ -98,16 +96,16 @@ By investigating the Command Line History of .viminfo, bomb.sh was saved and ren
 vi .viminfo
 ```
 
-![desc.](images/)
+![os-update-sh](images/os-update-sh.png)
 
 ### 8. When was the file from the previous question last modified? (Format: Month Day HH:MM) This was achieved by using the command:
-The last modification date of the os-update.sh file were identified by listing the contents of the /bin directory. This was achieved by using the command:
+The last modification date of the os-update.sh file were identified by listing the contents of the /bin directory and using the full time option. This was achieved by using the command:
 
 ```
-ls -l
+ls -l --full-time | grep "os-update.sh"
 ```
 
-![desc.](images/)
+![full-time](images/full-time.png)
 
 ### 9. What is the name of the file that will get created when the file from the first question executes?
 From the same image above, reading the file shows that **goodbye.txt.** will be created if it gets executed. This was achieved by using the command:
@@ -116,7 +114,7 @@ From the same image above, reading the file shows that **goodbye.txt.** will be 
 cat os-update.sh
 ```
 
-![desc.](images/)
+![goodbye.txt](images/goodbye.txt.png)
 
 ---
 
@@ -134,7 +132,11 @@ By reading all the cron files and grepping for os-update.sh, its cron job were l
 cat cron* | grep "os-update.sh"
 ```
 
-![desc.](images/)
+![cat-grep-os-update-sh](images/cat-grep-os-update-sh.png)
+
+To decode its schedule, Crontab Guru were utilized. The job will run at **08:00 AM** every day.
+
+![crontab-guru](images/crontab-guru.png)
 
 ## Conclusion
 *Thanks to you, we now have a good idea of what our disgruntled IT person was planning.*
