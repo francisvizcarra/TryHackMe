@@ -44,7 +44,7 @@ cat other_vhosts_access.log.` | grep images.php?query
 
 ![grep images.php?query](images/grep-images.php-query.png)
 
-CyberChef was utilized to decode the values, resulting to discovering the enumeration commands of the attacker along with the Flag **THM{sup3r_34sy_w3bsh3ll}** to accomplish the Room.
+CyberChef was utilized to decode the values, resulting to discovering the enumeration commands of the attacker along with the Flag <mark>THM{sup3r_34sy_w3bsh3ll}</mark> to accomplish the Room.
 
 ![cyber chef](images/cyber-chef.png)
 
