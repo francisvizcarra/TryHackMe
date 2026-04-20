@@ -20,32 +20,32 @@ We recently purchased a new threat intelligence search application called TryDet
 
 # Answer the questions below
 ### 1. What is the name of the file identified with the flagged SHA256 hash?
-As per **VirusTotal**, the SHA256 hash corresponds to **syshelpers.exe**.
+As per VirusTotal, the SHA256 hash corresponds to <mark>syshelpers.exe</mark>.
 
 ![SHA256 file](images/syshelpers-exe.png)
 
 ### 2. What is the file type associated with the flagged SHA256 hash?
-Under the **Details** tab, the file type is **Win32 EXE**.
+Under the Details tab, the file type is <mark>Win32 EXE</mark>.
 
 ![file type](images/Win32-EXE.png)
 
 ### 3. What are the execution parents of the flagged hash? List the names chronologically, using a comma as a separator. Note down the hashes for later use.
-Under the **Relations** tab, the execution parents are **361GJX7J** and **installer.exe**.
+Under the Relations tab, the execution parents are <mark>361GJX7J</mark> and <mark>installer.exe</mark>.
 
 ![execution parents](images/execution-parents.png)
 
 ### 4. What is the name of the file being dropped? Note down the hash value for later use.
-While the analysis revealed that some files had unknown attributes ('?') indicating incomplete data, one file (**AClient.exe**) was fully processed for more investigation.
+While the analysis revealed that some files had unknown attributes ('?') indicating incomplete data, one file (<mark>AClient.exe</mark>) was fully processed for more investigation.
 
 ![file dropped](images/AClient-exe.png)
 
 ### 5. Research the second hash in question 3 and list the four malicious dropped files in the order they appear (from up to down), separated by commas.
-The second hash that is being referenced to is the **installer.exe**. The malicious dropped files were **searchhost.exe**, **syshelpers.exe**, **nat1.vbs**, and **runsys.vbs**.
+The second hash that is being referenced to is the installer.exe. The malicious dropped files were <mark>searchhost.exe</mark>, <mark>syshelpers.exe</mark>, <mark>nat1.vbs</mark>, and <mark>runsys.vbs</mark>.
 
 ![4 dropped files](images/4-dropped-files.png)
 
 ### 6. Analyse the files related to the flagged IP. What is the malware family that links these files?
-Reviewing the communicating files shows that these files belong to the **AsyncRAT** family.
+Reviewing the communicating files shows that these files belong to the <mark>AsyncRAT</mark> family.
 
 ![AsyncRAT family](images/AsyncRAT-family.png)
 
@@ -55,13 +55,13 @@ After doing some OSINT, the title of the original report was [From Trust to Thre
 ![AsyncRAT family](images/Check-Point-Research.png)
 
 ### 8. Which tool did the attackers use to steal cookies from the Google Chrome browser?
-**ChromeKatz** was used to steal cookies, bypassing Chrome’s App Bound Encryption [ABE].
+<mark>ChromeKatz</mark> was used to steal cookies, bypassing Chrome’s App Bound Encryption [ABE].
 
 ### 9. Which phishing technique did the attackers use? Use the report to answer the question.
-The attackers used **ClickFix**, "a technique in which the service initially appears broken, prompting the user to take manual action to fix it” (Check Point Research, 2025).
+The attackers used <mark>ClickFix</mark>, "a technique in which the service initially appears broken, prompting the user to take manual action to fix it” (Check Point Research, 2025).
 
 ### 10. What is the name of the platform that was used to redirect a user to malicious servers?
-**Discord**'s custom invite links were actively exploited as a redirection method.
+<mark>Discord</mark>'s custom invite links were actively exploited as a redirection method.
 
 ---
 ---
