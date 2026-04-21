@@ -7,6 +7,7 @@ Challenges Write-ups
 - [Disgruntled](https://github.com/francisvizcarra/TryHackMe/blob/main/Blue-Team/Easy/disgruntled.md)
 - [Infinity Shell](https://github.com/francisvizcarra/TryHackMe/blob/main/Blue-Team/Easy/infinity-shell.md)
 - [Invite Only](https://github.com/francisvizcarra/TryHackMe/blob/main/Blue-Team/Easy/invite-only.md)
+- [Shadow Trace](https://github.com/francisvizcarra/TryHackMe/blob/main/Blue-Team/Easy/shadow-trace.md)
 - [Snapped Phish-ing Line](https://github.com/francisvizcarra/TryHackMe/blob/main/Blue-Team/Easy/snapped-phishing-line.md)
 
 ### ![Difficulty](https://img.shields.io/badge/Difficulty-Medium-yellow)
