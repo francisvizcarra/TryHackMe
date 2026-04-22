@@ -91,8 +91,8 @@ It shows in the command that the file <mark>`test.txt`</mark> was downloaded.
 ---
 
 ## References
-- https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=VkVoTmUzbHZkVjluTUhSZmMyOXRaVjlKVDBOelgyWnlhV1Z1WkgwPQ
-- https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=YUhSMGNITTZMeTkwY25sb1lYUnRaUzVqYjIwdlpHVjJMMjFoYVc0dVpYaGw
-- https://www.dcode.fr/cipher-identifier&v5
-- https://www.dcode.fr/ascii-code&v5
+- CyberChef: https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=VkVoTmUzbHZkVjluTUhSZmMyOXRaVjlKVDBOelgyWnlhV1Z1WkgwPQ
+- CyberChef: https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=YUhSMGNITTZMeTkwY25sb1lYUnRaUzVqYjIwdlpHVjJMMjFoYVc0dVpYaGw
+- dCode: https://www.dcode.fr/cipher-identifier&v5
+- dCode: https://www.dcode.fr/ascii-code&v5
 
