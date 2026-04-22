@@ -16,7 +16,7 @@ Cipher’s legion of bots has exploited a known vulnerability in our web applica
 ### 1. What is the flag?
 The objective is to investigate web app vulnerability, so the focus will be on investigating web server logs.
 
-Upon heading into /var/log, only the apache2 was present. 
+Upon heading into `/var/log`, only the apache2 was present. 
 
 ![cd /var/log ls -a](images/-var-log-ls-a.png)
 
@@ -28,7 +28,7 @@ ls -la
 
 ![cd /var/log ls -la](images/-var-log-apache2-ls-la.png)
 
-During the investigation of the **other_vhosts_access.log.1** file, what stood out is the **images.php** script in the **/CMSsite-master/img** diretory, which is unusual as typically it should only contain image files (e.g., .jpg, .png). This was achieved by using the command:
+During the investigation of the `other_vhosts_access.log.1` file, what stood out is the `images.php` script in the `/CMSsite-master/img` diretory, which is unusual as typically it should only contain image files (e.g., .jpg, .png). This was achieved by using the command:
 
 ```bash
 cat other_vhosts_access.log.` | grep images.php
@@ -36,7 +36,7 @@ cat other_vhosts_access.log.` | grep images.php
 
 ![grep images.php](images/grep-images.php.png)
 
-To further narrow down the investigation, the focus was turned to the requests with suspicious query parameters containing Base64 encoded strings. This was achieved by using the command:
+To further narrow down the investigation, the focus was turned to the requests with suspicious query parameters containing Base64-encoded strings. This was achieved by using the command:
 
 ```bash
 cat other_vhosts_access.log.` | grep images.php?query
@@ -44,7 +44,7 @@ cat other_vhosts_access.log.` | grep images.php?query
 
 ![grep images.php?query](images/grep-images.php-query.png)
 
-CyberChef was utilized to decode the values, resulting to discovering the enumeration commands of the attacker along with the Flag <mark>THM{sup3r_34sy_w3bsh3ll}</mark> to accomplish the Room.
+CyberChef was utilized to decode the values. It resulted to discovering the enumeration commands and the flag <mark>THM{sup3r_34sy_w3bsh3ll}</mark> to accomplish the room.
 
 ![cyber chef](images/cyber-chef.png)
 
