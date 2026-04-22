@@ -108,7 +108,7 @@ ls -l --full-time | grep "os-update.sh"
 ![full-time](images/full-time.png)
 
 ### 9. What is the name of the file that will get created when the file from the first question executes?
-From the same image above, reading the file shows that <mark>`goodbye.txt`</mark> will be created if it gets executed. This was achieved by using the command:
+Reading the file shows that <mark>`goodbye.txt`</mark> will be created if it gets executed. This was achieved by using the command:
 
 ```
 cat os-update.sh
