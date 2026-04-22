@@ -50,3 +50,6 @@ CyberChef was utilized to decode the values. It resulted to discovering the enum
 
 ---
 ---
+
+## References
+- CyberChef: https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=ZDJodllXMXBDZz09DQoNCmJITUsNCg0KWldOb2J5QW5WRWhOZTNOMWNETnlYek0wYzNsZmR6TmljMmd6Ykd4OUp3bz0NCg0KYVdaamIyNW1hV2NLDQoNClkyRjBJQzlsZEdNdmNHRnpjM2RrQ2c9PQ0KDQphV1FL&ieol=CRLF
