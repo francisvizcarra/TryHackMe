@@ -11,7 +11,7 @@ Challenges Write-ups
 - [Snapped Phish-ing Line](https://github.com/francisvizcarra/TryHackMe/blob/main/Blue-Team/Easy/snapped-phishing-line.md)
 
 ### ![Difficulty](https://img.shields.io/badge/Difficulty-Medium-yellow)
-- (coming soon)
+- [ItsyBitsy](https://github.com/francisvizcarra/TryHackMe/blob/main/Blue-Team/Easy/itsybitsy.md)
 
 ### ![Difficulty](https://img.shields.io/badge/Difficulty-Hard-red)
 - (coming soon)
