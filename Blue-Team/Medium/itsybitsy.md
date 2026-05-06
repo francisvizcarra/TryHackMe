@@ -21,12 +21,18 @@ In this challenge room, we will take a simple challenge to investigate an alert 
 ### 1. How many events were returned for the month of March 2022?
 By filtering the date from only the month of March 2022, <mark>1482</mark> events were discovered.
 
+![1,482 hits](images/1,482-hits.png)
+
 ### 2. What is the IP associated with the suspected user in the logs?
-The data was approached by tackling the low-hanging fruit first, starting with the IP 192.166.65.54 as it was linked to just 0.4% of the dataset. This allowed for faster triage.
+The data was approached by tackling the low-hanging fruit first, starting with the IP `192.166.65.54` as it was linked to just 0.4% of the dataset. This allowed for faster triage.
+
+![source_ip](images/source_ip.png)
 
 The next step was to build a table with fields that are relevant to view specific data in a tidy and structured way.
 
-IP <mark>`192.166.65.54`</mark> was determined to be suspicious due to several reasons: it communicated to an external IP over an unencrypted traffic, interacted with `pastebin[.]com` which is a known staging area for attackers, and utilized `bitsadmin`, commonly abused as a file transfer tool.
+![Step 2-5](images/Step-2-5.png)
+
+IP <mark>`192.166.65.54`</mark> was determined to be suspicious for several reasons: it communicated to an external IP over unencrypted traffic, interacted with `pastebin[.]com` using the `GET` request method (a known staging area for attackers), and utilized `bitsadmin`, commonly abused tool for file transfers
 
 ### 3. The user’s machine used a legit windows binary to download a file from the C2 server. What is the name of the binary?
 The binary used was <mark>`bitsadmin`</mark>. a LOLBin to bypass security systems.
@@ -35,13 +41,18 @@ The binary used was <mark>`bitsadmin`</mark>. a LOLBin to bypass security system
 <mark>`pastebin[.]com`</mark> was used as a C2 server.
 
 ### 5. What is the full URL of the C2 to which the infected host is connected?
-The full URL of the server is <mark>`pastebin[.]com/yTg0Ah6a`</mark>
+The full URL of the server is <mark>`pastebin[.]com/yTg0Ah6a`</mark>.
 
 ### 6. A file was accessed on the filesharing site. What is the name of the file accessed?
-By using the virtual machine to access the URL, the <mark>`secret.txt`</mark> file was discovered.
+By using the virtual machine to safely investigate the URL, the <mark>`secret.txt`</mark> file was discovered.
+
+![Step 6-7](images/Step-6-7.png)
 
 ### 7. The file contains a secret code with the format THM{_____}.
 Inside the file is the flag <mark>THM{SECRET__CODE}</mark> to accomplish the room.
 
 ---
 ---
+
+## References
+- Pastebin: `hxxps[://]pastebin[.]com/yTg0Ah6a`
