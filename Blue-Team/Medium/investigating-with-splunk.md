@@ -45,7 +45,7 @@ The backdoor user was <mark>A1berto</mark>.
 ### 3. On the same host, a registry key was also updated regarding the new backdoor user. What is the full path of that registry key?
 When `Sysmon Event ID 13` (registry modification), hostname `Micheal.Beaven`, and the keyword `A1berto` was appended in the query, the registry key tampering event were identified.
 
-![EventID-13-Hostname-Micheal.Beaven-A1berto](images/EventID-13-Hostname-Micheal.Beaven-A1berto.png)
+![Event ID 13 Hostname-Micheal.Beaven A1berto](images/EventID-13-Hostname-Micheal.Beaven-A1berto.png)
 
 <mark>`HKLM\SAM\SAM\Domains\Account\Users\Names\A1berto`</mark> is the full path of the registry key.
 
@@ -63,7 +63,7 @@ The impersonator is higlighted in red while the user that was impersonated is hi
 ### 5. What is the command used to add a backdoor user from a remote computer?
 By pivoting to this `index=main A1berto` query, the small number of events allowed singly investigation.
 
-![index-main-A1berto](images/index-main-A1berto.png)
+![index-main A1berto](images/index-main-A1berto.png)
 
 The command for adding the user was <mark>`C:\windows\System32\Wbem\WMIC.exe" /node:WORKSTATION6 process call create "net user /add A1berto paw0rd1`</mark>. 
 
@@ -74,7 +74,7 @@ It is important to note that `WMIC` is used for remote execution.
 ### 6. How many times was the login attempt from the backdoor user observed during the investigation?
 By using the query `index=main EventID IN (4624, 4625) A1berto`, the result showed <mark>0</mark> trace of login attempts.
 
-![EventID-4624-4625](images/EventID-4624-4625.png)
+![Event ID 4624, 4625](images/EventID-4624-4625.png)
 
 ### 7. What is the name of the infected host on which suspicious Powershell commands were executed?
 During the investigation of `Question 5`, suspicious Powershell commands were noticed in the host <mark>`James.browne`</mark>.
@@ -90,15 +90,28 @@ There were <mark>79</mark> events logged.
 
 ### 9. An encoded Powershell script from the infected host initiated a web request. What is the full URL?
 
+<details>
+<summary>💡 Hint</summary>
+
 ```
-Hint: Defang the URL, CyberChef can help with this.
+Defang the URL, CyberChef can help with this.
 ```
+
+</details>
 
 This lengthy Base64-encoded string was first deobfuscted using CyberChef.
 
-It returned with another Base64-encoded string within the output.
+![Base64-1](images/Base64-1.png)
 
-With this, the URL was then reconstructed with the search string from the initial command. The full URL is <mark>`hxxp[://]10[.]10[.]10[.]5/news[.]php`</mark>
+Although it returned with another Base64-encoded string within the output.
+
+![Base64-2](images/Base64-2.png)
+
+Decoding the second string reveals the web request. However to obtain the full URL, a URL reconstruction was needed.
+
+![web request](images/web-request.png)
+
+The full URL of the web request is <mark>`hxxp[://]10[.]10[.]10[.]5/news[.]php`</mark>.
 
 ---
 ---
