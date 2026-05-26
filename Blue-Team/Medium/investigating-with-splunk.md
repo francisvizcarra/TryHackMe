@@ -21,41 +21,72 @@ All the required logs are ingested in the index **main**.
 ### 1. How many events were collected and Ingested in the index main?
 The index has <mark>12256</mark> events.
 
+![12,256 events](images/12,256-events.png)
+
 ### 2. On one of the infected hosts, the adversary was successful in creating a backdoor user. What is the new username?
 
+<details>
+<summary>💡 Hint</summary>
+
 ```
-Hint: Narrow down based on the Event ID that relates to the creation of a new user on the system.
+Narrow down based on the Event ID that relates to the creation of a new user on the system.
 ```
 
-By investigating the `Windows Event ID 4720`, the user creation event was identified. The backdoor user was <mark>A1berto</mark>.
+</details>
+
+By investigating the `Windows Event ID 4720`, the user creation event was identified.
+
+![Event ID 4720](images/EventID-4720.png)
+
+The backdoor user was <mark>A1berto</mark>.
+
+![A1berto](images/A1berto.png)
 
 ### 3. On the same host, a registry key was also updated regarding the new backdoor user. What is the full path of that registry key?
 When `Sysmon Event ID 13` (registry modification), hostname `Micheal.Beaven`, and the keyword `A1berto` was appended in the query, the registry key tampering event were identified.
 
+![EventID-13-Hostname-Micheal.Beaven-A1berto](images/EventID-13-Hostname-Micheal.Beaven-A1berto.png)
+
 <mark>`HKLM\SAM\SAM\Domains\Account\Users\Names\A1berto`</mark> is the full path of the registry key.
+
+![HKLM](images/HKLM.png)
 
 ### 4. Examine the logs and identify the user that the adversary was trying to impersonate.
 This query uses the `stats` command with the `count` function to aggregate events by `TargetUserName`.
 
 It was identified that the adversary was impersonating the user <mark>Alberto</mark>.
 
+![Alberto](images/Alberto.png)
+
+The impersonator is higlighted in red while the user that was impersonated is higlighted in yellow.
+
 ### 5. What is the command used to add a backdoor user from a remote computer?
 By pivoting to this `index=main A1berto` query, the small number of events allowed singly investigation.
 
+![index-main-A1berto](images/index-main-A1berto.png)
+
 The command for adding the user was <mark>`C:\windows\System32\Wbem\WMIC.exe" /node:WORKSTATION6 process call create "net user /add A1berto paw0rd1`</mark>. 
+
+![WMIC](images/WMIC.png)
 
 It is important to note that `WMIC` is used for remote execution.
 
 ### 6. How many times was the login attempt from the backdoor user observed during the investigation?
 By using the query `index=main EventID IN (4624, 4625) A1berto`, the result showed <mark>0</mark> trace of login attempts.
 
+![EventID-4624-4625](images/EventID-4624-4625.png)
+
 ### 7. What is the name of the infected host on which suspicious Powershell commands were executed?
-During the investigation of `Question 5`, suspicious Powershell commands were noticed in the host <mark>`James.browne`</mark>. 
+During the investigation of `Question 5`, suspicious Powershell commands were noticed in the host <mark>`James.browne`</mark>.
+
+![James.browne](images/James.browne.png)
 
 ### 8. PowerShell logging is enabled on this device. How many events were logged for the malicious PowerShell execution?
 Investigating the `Windows Event ID 4103` saw the full log pertaining to malicious powershell execution.
 
 There were <mark>79</mark> events logged.
+
+![79 events](images/79-events.png)
 
 ### 9. An encoded Powershell script from the infected host initiated a web request. What is the full URL?
 
