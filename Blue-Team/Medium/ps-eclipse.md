@@ -36,7 +36,6 @@ These evidences prove that <mark>`OUTSTANDING_GUTTER.exe`</mark> was the suspici
 
 What makes this more suspicious is that it disables the real-time monitoring of Microsoft Defender. Moreover it must be noted that the binary was also used in a scheduled task.
 
-
 ### 2. What is the address the binary was downloaded from? Add http:// to your answer & defang the URL.
 
 <details>
@@ -48,7 +47,11 @@ CyberChef can help with defanging the URL.
 
 </details>
 
+Based from the decoded PowerShell command, the binary was downloaded from <mark>`hxxp[://]886e-181-215-214-32[.]ngrok[.]io`</mark>.
+
 ### 3. What Windows executable was used to download the suspicious binary? Enter full path.
+
+PowerShell was used for the download. The full path is <mark>`C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe`</mark>.
 
 ### 4. What command was executed to configure the suspicious binary to run with elevated privileges?
 
@@ -60,6 +63,10 @@ Event Code 12 will help here. Note that the attacker tried multiple attempts to 
 ```
 
 </details>
+
+In order to locate the command, `Sysmon Event ID 1` as well as `OUTSTANDING_GUTTER.exe` was appended in the search query.
+
+The command for configuring the binary was <mark>`"C:\Windows\system32\schtasks.exe" /Create /TN OUTSTANDING_GUTTER.exe /TR C:\Windows\Temp\COUTSTANDING_GUTTER.exe /SC ONEVENT /EC Application /MO *[System/EventID=777] /RU SYSTEM /f`</mark>.
 
 ### 5. What permissions will the suspicious binary run as? What was the command to run the binary with elevated privileges? (Format: User + ; + CommandLine)
 
