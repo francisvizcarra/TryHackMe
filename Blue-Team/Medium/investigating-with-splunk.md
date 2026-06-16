@@ -61,7 +61,13 @@ It was identified that the adversary was impersonating the user <mark>Alberto</m
 The impersonator is higlighted in red while the user that was impersonated is higlighted in yellow.
 
 ### 5. What is the command used to add a backdoor user from a remote computer?
-By pivoting to this `index=main A1berto` query, the small number of events allowed singly investigation.
+By pivoting to this search query:
+
+```
+index=main Alberto
+```
+
+The small number of events allowed singly investigation.
 
 ![index-main A1berto](images/index-main-A1berto.png)
 
@@ -72,7 +78,13 @@ The command for adding the user was <mark>`C:\windows\System32\Wbem\WMIC.exe" /n
 It is important to note that `WMIC` is used for remote execution.
 
 ### 6. How many times was the login attempt from the backdoor user observed during the investigation?
-By using the query `index=main EventID IN (4624, 4625) A1berto`, the result showed <mark>0</mark> trace of login attempts.
+By using the following search query:
+
+```
+index=main EventID IN (4624, 4625) A1berto
+```
+
+The result showed <mark>0</mark> trace of login attempts.
 
 ![Event ID 4624, 4625](images/EventID-4624-4625.png)
 
