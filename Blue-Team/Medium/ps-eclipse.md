@@ -22,7 +22,7 @@ Happy Hunting!
 
 ## Answer the questions below
 ### 1. A suspicious binary was downloaded to the endpoint. What was the name of the binary?
-To filter out the logs, the initial search query was `index=main ComputerName=DESKTOP-TBV8NEF sourcetype=WinEventLog:Microsoft-Windows-Sysmon/Operational EventCode=11 Image=C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`.
+To filter out the logs, the initial search query was `index=main ComputerName="DESKTOP-TBV8NEF" sourcetype="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode="11" Image="C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"`.
 
 Next, the `TargetFilename` field was investigated to determine the suspicious binary.
 
@@ -74,6 +74,14 @@ It's ran by the `NT AUTHORITY/SYSTEM`. The answer is <mark>`NT AUTHORITY\SYSTEM;
 
 ### 6. The suspicious binary connected to a remote server. What address did it connect to? Add http:// to your answer & defang the URL.
 
+`Sysmon Event ID 22` was investigated to check for DNS Queries. One domain stood out, `9030-181-215-214-32[.]ngrok[.]io`. Another ngrok domain just like the domain from the encoded PowerShell command.
+
+By using the search query `index=main ComputerName="DESKTOP-TBV8NEF" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" 9030-181-215-214-32.ngrok.io`, the domain was verified to be malicious as the DNS Query was executed by `OUTSTANDING_GUTTER.exe`. 
+
+<mark>`9030-181-215-214-32[.]ngrok[.]io`</mark> was the remote server.
+
+It is important to note that `ngrok` is a tunneling service which exposes local services to the Internet.
+
 <details>
 <summary>💡 Hint</summary>
 
@@ -85,7 +93,19 @@ CyberChef can help with defanging the URL.
 
 ### 7. A PowerShell script was downloaded to the same location as the suspicious binary. What was the name of the file?
 
+`Sysmon Event ID 11` and .ps1 scripts were investigated. The search query was `index=main ComputerName="DESKTOP-TBV8NEF" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode="11" Image="C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" *.ps1`. Files that were stored in the `C:\Windows\Temp\` directory were the files of interest. 
+
+One of them was `script.ps1`. To know more about this script, its `ProcessGuid` and `ProcessID` was investigated. The search query was `index=main ComputerName="DESKTOP-TBV8NEF" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" ProcessGuid:"{eea302a0-536e-6282-270f-000000000300}" ProcessId:"7972" script.ps1`.
+
+One log revealed its hashes. 
+
+Upon feeding its MD5 in VirusTotal, multiple vendors flagged it as malicious.  
+
+Hence it gives reason why <mark>`script.ps1`</mark> is interesting.
+
 ### 8. The malicious script was flagged as malicious. What do you think was the actual name of the malicious script?
+
+Based from the scan in VirusTotal, it's identified popularly as <mark>`BlackSun.ps1`</mark>.
 
 <details>
 <summary>💡 Hint</summary>
@@ -98,9 +118,22 @@ Check VirusTotal for the hash of the PowerShell script.
 
 ### 9. A ransomware note was saved to disk, which can serve as an IOC. What is the full path to which the ransom note was saved?
 
+The ransomware note was able to be located by probing `Sysmon Event ID 11` and .txt files.
+
+The full path is <mark>`C:\Users\keegan\Downloads\vasg6b0wmw029hd\BlackSun_README.txt`</mark>.
+
+It is important to note that it shares the same `ProcessGuid` and `ProcessID` as `script.ps1`.
+
 ### 10. The script saved an image file to disk to replace the user's desktop wallpaper, which can also serve as an IOC. What is the full path of the image?
+
+The image was found by investigating `Sysmon Event ID 11` and .jpg files.
+
+The full path is <mark>`C:\Users\Public\Pictures\blacksun.jpg`</mark>.
+
+It is important to note that it shares the same `ProcessGuid` and `ProcessID` as `script.ps1`.
 
 ---
 ---
 
 ## References
+- https://www.virustotal.com/gui/file/e5429f2e44990b3d4e249c566fbf19741e671c0e40b809f87248d9ec9114bef9
